@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
 	Box,
 	Button,
@@ -33,6 +33,43 @@ function App() {
 	const [sortDirection, setSortDirection] = React.useState<
 		'asc' | 'desc' | null | undefined
 	>(null);
+
+	// Function to update the browser's query string with filter settings
+	const updateQueryString = useCallback(() => {
+		const params = new URLSearchParams();
+		if (search) params.append('search', search);
+		if (role !== 'ANY') params.append('role', role);
+		if (employeeType !== 'ANY') params.append('employeeType', employeeType);
+		if (offset !== 0) params.append('offset', String(offset));
+		if (pageSize !== 10) params.append('pageSize', String(pageSize));
+		if (sort) params.append('sort', sort);
+		if (sortDirection) params.append('sortDirection', sortDirection);
+
+		const queryString = params.toString();
+		// Update the browser's URL with the query string
+		window.history.replaceState(
+			null,
+			'',
+			queryString ? '?' + queryString : window.location.pathname
+		);
+	}, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
+
+	// Initialize filter state from the browser's query string
+	useEffect(() => {
+		const params = new URLSearchParams(window.location.search);
+		setSearch(params.get('search') || '');
+		setRole((params.get('role') as PersonRole) || 'ANY');
+		setEmployeeType((params.get('employeeType') as EmployeeType) || 'ANY');
+		setOffset(Number(params.get('offset')) || 0);
+		setPageSize(Number(params.get('pageSize')) || 10);
+		setSort((params.get('sort') as keyof Person) || null);
+		setSortDirection((params.get('sortDirection') as 'asc' | 'desc') || null);
+	}, []);
+
+	// Update the browser's query string whenever filter settings change
+	useEffect(() => {
+		updateQueryString();
+	}, [updateQueryString]);
 
 	useEffect(() => {
 		setShowDrawer(rowSelectionModel.length > 0);
