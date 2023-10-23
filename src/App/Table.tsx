@@ -5,7 +5,12 @@
  * It supports pagination, selection, and now includes an Email column for each person.
  */
 import React from 'react';
-import { DataGrid, GridColDef, GridRowSelectionModel } from '@mui/x-data-grid';
+import {
+	DataGrid,
+	GridColDef,
+	GridRowSelectionModel,
+	GridSortModel,
+} from '@mui/x-data-grid';
 import { Person } from '../types';
 import { Box } from '@mui/material';
 
@@ -15,9 +20,15 @@ interface TableProps {
 	loading: boolean;
 	pageSize: number;
 	rowSelectionModel: GridRowSelectionModel;
+	sort: keyof Person | null;
+	sortDirection: 'asc' | 'desc' | null | undefined;
 	setRowSelectionModel: React.Dispatch<React.SetStateAction<GridRowSelectionModel>>;
 	setPageSize: React.Dispatch<React.SetStateAction<number>>;
 	setOffset: React.Dispatch<React.SetStateAction<number>>;
+	setSort: React.Dispatch<React.SetStateAction<keyof Person | null>>;
+	setSortDirection: React.Dispatch<
+		React.SetStateAction<'asc' | 'desc' | null | undefined>
+	>;
 }
 
 export default function Table(props: TableProps) {
@@ -27,9 +38,13 @@ export default function Table(props: TableProps) {
 		rowCount,
 		pageSize,
 		rowSelectionModel,
+		sort,
+		sortDirection,
 		setRowSelectionModel,
 		setPageSize,
 		setOffset,
+		setSort,
+		setSortDirection,
 	} = props;
 	const columns: GridColDef[] = [
 		{ field: 'id', headerName: 'ID', width: 70 },
@@ -65,6 +80,22 @@ export default function Table(props: TableProps) {
 		},
 	];
 
+	// handleSortModelChange - A handler function to update the sorting state when the user interacts with the column headers to sort the data.
+	const handleSortModelChange = (model: GridSortModel) => {
+		const newSort = model[0]?.field as keyof Person | null;
+		const newSortDirection = model[0]?.sort as 'asc' | 'desc' | null;
+		setSort(newSort);
+		setSortDirection(newSortDirection);
+	};
+
+	// sortModel - The current sort model, which determines the field and direction of the sorting applied to the DataGrid.
+	const sortModel = [
+		{
+			field: sort || 'id',
+			sort: sortDirection || 'asc',
+		},
+	];
+
 	return (
 		<Box mb={10}>
 			<DataGrid<Person>
@@ -89,6 +120,9 @@ export default function Table(props: TableProps) {
 				onRowSelectionModelChange={(newRowSelectionModel) => {
 					setRowSelectionModel(newRowSelectionModel);
 				}}
+				sortModel={sortModel} // The current sort model, which determines the field and direction of the sorting applied to the DataGrid.
+				onSortModelChange={handleSortModelChange} // A handler function to update the sorting state when the user interacts with the column headers to sort the data.
+				sortingMode='server' // The sorting mode of the grid.
 			/>
 		</Box>
 	);
