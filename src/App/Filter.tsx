@@ -1,3 +1,10 @@
+/**
+ * Filter Component
+ * This component provides the interface for filtering the list of Persons
+ * displayed in the Table component.
+ * It allows for filtering by search term,
+ * role (Student or Employee), and Employee Type (Full-Time or Part-Time).
+ */
 import React, { useEffect } from 'react';
 import {
 	Box,
