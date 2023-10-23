@@ -1,4 +1,5 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import {
 	Box,
 	Button,
@@ -15,6 +16,8 @@ import Table from './Table';
 import { Filter } from './Filter';
 
 function App() {
+	const [searchParams, setSearchParams] = useSearchParams(); // Custom hook from react-router-dom to manage URL parameters
+
 	const [rowSelectionModel, setRowSelectionModel] = React.useState<GridRowSelectionModel>(
 		[]
 	);
@@ -34,43 +37,6 @@ function App() {
 		'asc' | 'desc' | null | undefined
 	>(null);
 
-	// Function to update the browser's query string with filter settings
-	const updateQueryString = useCallback(() => {
-		const params = new URLSearchParams();
-		if (search) params.append('search', search);
-		if (role !== 'ANY') params.append('role', role);
-		if (employeeType !== 'ANY') params.append('employeeType', employeeType);
-		if (offset !== 0) params.append('offset', String(offset));
-		if (pageSize !== 10) params.append('pageSize', String(pageSize));
-		if (sort) params.append('sort', sort);
-		if (sortDirection) params.append('sortDirection', sortDirection);
-
-		const queryString = params.toString();
-		// Update the browser's URL with the query string
-		window.history.replaceState(
-			null,
-			'',
-			queryString ? '?' + queryString : window.location.pathname
-		);
-	}, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
-
-	// Initialize filter state from the browser's query string
-	useEffect(() => {
-		const params = new URLSearchParams(window.location.search);
-		setSearch(params.get('search') || '');
-		setRole((params.get('role') as PersonRole) || 'ANY');
-		setEmployeeType((params.get('employeeType') as EmployeeType) || 'ANY');
-		setOffset(Number(params.get('offset')) || 0);
-		setPageSize(Number(params.get('pageSize')) || 10);
-		setSort((params.get('sort') as keyof Person) || null);
-		setSortDirection((params.get('sortDirection') as 'asc' | 'desc') || null);
-	}, []);
-
-	// Update the browser's query string whenever filter settings change
-	useEffect(() => {
-		updateQueryString();
-	}, [updateQueryString]);
-
 	useEffect(() => {
 		setShowDrawer(rowSelectionModel.length > 0);
 	}, [rowSelectionModel]);
@@ -85,6 +51,49 @@ function App() {
 			})
 			.catch(() => setErrorMessage('There has been an error loading from the API.'));
 	}, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
+
+	// // useEffect hook to initialize state from URL parameters on first render
+	useEffect(() => {
+		// Creating an instance of URLSearchParams to parse the query string
+		const params = new URLSearchParams(window.location.search);
+		// Setting state variables based on URL parameters, or default values if parameters are not present
+		setSearch(params.get('search') || '');
+		setRole((params.get('role') as PersonRole) || 'ANY');
+		setEmployeeType((params.get('employeeType') as EmployeeType) || 'ANY');
+		setOffset(Number(params.get('offset')) || 0);
+		setPageSize(Number(params.get('pageSize')) || 10);
+		setSort((params.get('sort') as keyof Person) || null);
+		setSortDirection((params.get('sortDirection') as 'asc' | 'desc' | null) || null);
+	}, []); // Empty dependency array means this useEffect runs once
+
+	// useEffect hook to update the URL query parameters from the state
+	useEffect(() => {
+		// Updating URL parameters to reflect current state
+		searchParams.set('search', search);
+		searchParams.set('role', role);
+		searchParams.set('employeeType', employeeType);
+		searchParams.set('offset', offset.toString());
+		searchParams.set('pageSize', pageSize.toString());
+		// Conditionally setting or deleting sort and sortDirection parameters based on their values
+		if (sort && sortDirection) {
+			searchParams.set('sort', sort);
+			searchParams.set('sortDirection', sortDirection);
+		} else {
+			searchParams.delete('sort');
+			searchParams.delete('sortDirection');
+		}
+		setSearchParams(searchParams, { replace: true });
+	}, [
+		search,
+		role,
+		employeeType,
+		offset,
+		pageSize,
+		sort,
+		sortDirection,
+		searchParams,
+		setSearchParams,
+	]);
 
 	return (
 		<Container>
