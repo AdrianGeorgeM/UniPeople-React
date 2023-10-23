@@ -13,6 +13,7 @@ import {
 } from '@mui/x-data-grid';
 import { Person } from '../types';
 import { Box } from '@mui/material';
+import { mutateApi } from '../api';
 
 interface TableProps {
 	items: Person[];
@@ -31,6 +32,11 @@ interface TableProps {
 	>;
 }
 
+// handleEditRow  - A handler function that will be called when the user edits a cell.
+const handleEditRow = async (newRow: Person): Promise<Person> => {
+	await mutateApi(newRow.id, newRow);
+	return newRow;
+};
 export default function Table(props: TableProps) {
 	const {
 		items,
@@ -101,7 +107,7 @@ export default function Table(props: TableProps) {
 			<DataGrid<Person>
 				rows={items}
 				columns={columns}
-				isCellEditable={() => false}
+				// isCellEditable={() => false}
 				loading={loading}
 				disableColumnFilter
 				disableRowSelectionOnClick
@@ -123,6 +129,7 @@ export default function Table(props: TableProps) {
 				sortModel={sortModel} // The current sort model, which determines the field and direction of the sorting applied to the DataGrid.
 				onSortModelChange={handleSortModelChange} // A handler function to update the sorting state when the user interacts with the column headers to sort the data.
 				sortingMode='server' // The sorting mode of the grid.
+				processRowUpdate={handleEditRow} // A handler function that will be called when the user edits a cell.
 			/>
 		</Box>
 	);
