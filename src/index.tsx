@@ -1,15 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { GridStateProvider } from './contexts/GridStateContext';
+import { UIStateProvider } from './contexts/UIStateContext';
+import { FilterStateProvider } from './contexts/FilterStateContext';
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		<GridStateProvider>
+			<UIStateProvider>
+				<FilterStateProvider>
+					<App />
+				</FilterStateProvider>
+			</UIStateProvider>
+		</GridStateProvider>
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
