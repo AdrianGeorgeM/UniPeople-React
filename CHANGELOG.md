@@ -1,3 +1,25 @@
+## Task 1 - State Management Refactor (No Redux) just React Hooks and Context
+### Change Description
+- The objective is to segregate grid state, UI state, and filter state, employing a state management solution to manage them individually.
+
+### Implementation Details
+#### 1. Importing Dependencies:
+- Import required dependencies at the beginning of the respective files.
+
+#### 2. Establishing Contexts:
+- Created three separate contexts: `GridStateContext`, `UIStateContext`, and `FilterStateContext` for managing grid state, UI state, and filter state respectively.
+
+#### 3. State Providers:
+- Defined `GridStateProvider`, `UIStateProvider`, and `FilterStateProvider` components to provide state to the component tree in the `./src/index.tsx` component.
+
+#### 4. Custom Hooks:
+- Devised custom hooks `useGridState`, `useUIState`, and `useFilterState` to offer a tidy interface for accessing and updating the state from other components.
+
+#### 5. State Initialization and Updates:
+- Utilized `useState` and `useEffect` hooks to initialize and update the state based on user interactions or other events.
+
+
+---------------------------------------------------------------------------------------------
 ## Task 2 - Bug Fixing
 ### Bug Description
 - In the Filter component, if the Role is set to "Employee", and then Employee Type is set, switching the Role back to "Student" did not reset the Employee Type.
@@ -67,7 +89,7 @@ Add code to update the browser query string when a change in filter state is mad
 
 ---------------------------------------------------------------------------------------------
 
-## Task 5 - Update Browser Query String and Initialize Filter State
+## Task 5 - Update Browser Query String and Initialize Filter State(No react-router-dom)
 ### Change Description
 - The goal is to ensure that the browser's query string reflects the current filter state and that this state is utilized to initialize the filter on page load. This way, URLs with specific filter states can be bookmarked and shared.
 ### Implementation Details
@@ -108,8 +130,8 @@ Implemented two useEffect hooks to handle initialization of state from URL param
 
 ---------------------------------------------------------------------------------------------
 
-## Bonus Task - Server-side Persistence:
-### Change Description
+## Bonus Task - Server-side Persistence without mutating the data in the client `'../api';`:
+### Change Description 
 - Implemented server-side persistence to store and retrieve data on the server.
 ### Implementation Details
 #### 1. Import Data Mutator

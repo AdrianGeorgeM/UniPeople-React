@@ -9,30 +9,41 @@ import {
 	Typography,
 } from '@mui/material';
 import { queryApi } from '../api';
-import { GridRowSelectionModel } from '@mui/x-data-grid';
 import { EmployeeType, Person, PersonRole } from '../types';
 import Table from './Table';
 import { Filter } from './Filter';
+import { useGridState } from '../contexts/GridStateContext';
+import { useUIState } from '../contexts/UIStateContext';
+import { useFilterState } from '../contexts/FilterStateContext';
 
 function App() {
-	const [rowSelectionModel, setRowSelectionModel] = React.useState<GridRowSelectionModel>(
-		[]
-	);
-	const [search, setSearch] = React.useState<string>('');
-	const [offset, setOffset] = React.useState<number>(0);
-	const [pageSize, setPageSize] = React.useState<number>(10);
-	const [role, setRole] = React.useState<PersonRole>('ANY');
-	const [employeeType, setEmployeeType] = React.useState<EmployeeType>('ANY');
-	const [showDrawer, setShowDrawer] = React.useState<boolean>(false);
-	const [items, setItems] = React.useState<Person[]>([]);
-	const [count, setCount] = React.useState<number>(0);
-	const [loading, setLoading] = React.useState<boolean>(true);
-	const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-
-	const [sort, setSort] = React.useState<keyof Person | null>(null);
-	const [sortDirection, setSortDirection] = React.useState<
-		'asc' | 'desc' | null | undefined
-	>(null);
+	const { items, setItems, count, setCount } = useGridState();
+	const {
+		loading,
+		setLoading,
+		errorMessage,
+		setErrorMessage,
+		rowSelectionModel,
+		setRowSelectionModel,
+		showDrawer,
+		setShowDrawer,
+	} = useUIState();
+	const {
+		search,
+		role,
+		employeeType,
+		offset,
+		pageSize,
+		sort,
+		sortDirection,
+		setSearch,
+		setRole,
+		setEmployeeType,
+		setOffset,
+		setPageSize,
+		setSort,
+		setSortDirection,
+	} = useFilterState();
 
 	// Function to update the browser's query string with filter settings
 	const updateQueryString = useCallback(() => {
@@ -64,7 +75,15 @@ function App() {
 		setPageSize(Number(params.get('pageSize')) || 10);
 		setSort((params.get('sort') as keyof Person) || null);
 		setSortDirection((params.get('sortDirection') as 'asc' | 'desc') || null);
-	}, []);
+	}, [
+		setSearch,
+		setRole,
+		setEmployeeType,
+		setOffset,
+		setPageSize,
+		setSort,
+		setSortDirection,
+	]);
 
 	// Update the browser's query string whenever filter settings change
 	useEffect(() => {
@@ -73,7 +92,7 @@ function App() {
 
 	useEffect(() => {
 		setShowDrawer(rowSelectionModel.length > 0);
-	}, [rowSelectionModel]);
+	}, [rowSelectionModel, setShowDrawer]);
 
 	useEffect(() => {
 		setLoading(true);
@@ -84,7 +103,19 @@ function App() {
 				setLoading(false);
 			})
 			.catch(() => setErrorMessage('There has been an error loading from the API.'));
-	}, [search, role, employeeType, offset, pageSize, sort, sortDirection]);
+	}, [
+		search,
+		role,
+		employeeType,
+		offset,
+		pageSize,
+		sort,
+		sortDirection,
+		setItems,
+		setCount,
+		setLoading,
+		setErrorMessage,
+	]);
 
 	return (
 		<Container>
