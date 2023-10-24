@@ -59,6 +59,8 @@ This single-page app simulates a people management system for a fictional univer
 
 ## 📈 Development Workflow
 
+## All development takes place on the main branch. However, for each task, a new branch is derived from the develop branch.
+
 ### Task 1 - State Management
 
 - **Branch:** `task1-split-state`
