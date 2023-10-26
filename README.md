@@ -1,4 +1,4 @@
-# AC Frontend Dev Test Solution 🎓
+# UniPeople: A React-Based People Management System 🎓👥
 
 ## Table of Contents
 
@@ -14,121 +14,71 @@
 
 ## 🚀 Getting Started
 
-To get started, fork this repo to your own GitHub account and then clone it locally.
+To get started, you can clone this repository and install the necessary packages.
 
 ```bash
+git clone https://github.com/AdrianGeorgeM/UniPeople-React.git
+cd UniPeople-React
 npm install
 npm start
 ```
 
 Navigate to [http://localhost:3000/](http://localhost:3000/).
 
-This project is bootstrapped with [Create-React-App](https://create-react-app.dev/).
+This project is bootstrapped with [Create-React-App](https://create-react-app.dev/), ensuring a quick and easy setup.
 
 ## 📚 Overview
 
-This single-page app simulates a people management system for a fictional university. It allows for searching, filtering, and managing records of people who are either Students or Employees.
+Welcome to a people management system designed for a fictional university. This React-based single-page application enables you to perform tasks such as searching, filtering, and managing records of Students and Employees efficiently.
 
 ## 🛠 Tech Stack
 
-- [MUI (Material UI)](https://mui.com/material-ui/)
-- [MUI Data Grid](https://mui.com/x/react-data-grid/)
+- [React](https://reactjs.org/): For building the UI components
+- [MUI (Material UI)](https://mui.com/): For styling the UI
+- [MUI Data Grid](https://mui.com/x/react-data-grid/): For the data grid component
 
 ## 📂 Key Files
 
-- `src/App/index.tsx`: Main application logic
-- `src/api.ts`: Mock API
+- `src/App/index.tsx`: Contains the main application logic.
+- `src/api.ts`: Houses the mock API used for data manipulation.
 
 ## 🐛 Original Issues
 
+This project aimed to address the following issues:
+
 - Overuse of `useState`
-- Mixing of UI state, data state, and filter state
-- Presence of a bug in the filter form
-- No email column in the data grid
+- Mixing of UI, data, and filter states
+- Several bugs, including one in the filter form
+- Missing email column in the data grid
 - Inadequate sorting functionality
-- No URL query string updates for filters
+- Absence of URL query string updates for filters
 
 ## ✅ Tasks & Features Implemented
 
-- State Management Refactor
-- Bug Fixes
-- Additional Columns
-- Server-Side Sorting
-- Browser Query String Management
-- 🌟 Bonus: Server-side persistence
+- **State Management Refactor**: Optimized use of React's `useState`.
+- **Bug Fixes**: Rectified issues, including the filter form bug.
+- **Additional Columns**: Introduced an email column in the data grid.
+- **Server-Side Sorting**: Enhanced sorting functionality.
+- **Browser Query String Management**: Enabled dynamic URL updates based on filters.
+- **🌟 Bonus**: Implemented server-side persistence for edited grid cells.
 
 ## 📈 Development Workflow
 
-## All development takes place on the main branch. However, for each task, a new branch is derived from the develop branch.
+Development followed a structured branching strategy to ensure that each feature and bug fix was isolated.
 
-### Task 1 - State Management
+Here are the branches that were created for each task and feature:
 
-- **Branch:** `task1-split-state`
-- **Goal:** Separate grid state, UI state, and filter state. Implement a clean and well-typed state management solution.
-  
-```bash
-git checkout -b task1-split-state
-```
+- Task 1: `task1-split-state`
+- Task 2: `task2-fix-filter-bug`
+- Task 3: `task3-add-email-column`
+- Task 4: `task4-server-side-sorting`
+- Task 5: `task5-query-string`
+- Feature: `feature/task5-react-dom-alternative`
+- Bonus Task: `bonus-task-server-side-persistence`
 
-### Task 2 - Bug Fixing
-
-- **Branch:** `task2-fix-filter-bug`
-- **Goal:** Fix the bug where the Employee Type filter does not reset when changing the Role to Student.
-
-```bash
-git checkout -b task2-fix-filter-bug
-```
-
-### Task 3 - Add Email Column
-
-- **Branch:** `task3-add-email-column`
-- **Goal:** Add an email column to the data grid for displaying user email addresses.
-
-```bash
-git checkout -b task3-add-email-column
-```
-
-### Task 4 - Server-side Sorting
-
-- **Branch:** `task4-server-side-sorting`
-- **Goal:** Implement server-side sorting for the data grid.
-
-```bash
-git checkout -b task4-server-side-sorting
-```
-
-### Task 5 - URL Query String Management
-
-- **Branch:** `task5-query-string`
-- **Goal:** Enable the app to update the browser’s query string based on filter state and initialize from the URL.
-
-```bash
-git checkout -b task5-query-string
-```
-### Feature - React DOM Alternative
-
-- **Branch:** `feature/task5-react-dom-alternative`
-- **Goal:** Alternative using react-router-dom for Task 5 - URL Query String Management
-
-```bash
-git checkout -b feature/task5-react-dom-alternative
-```
-
-### Bonus Task - Server-side Persistence
-
-- **Branch:** `bonus-task-server-side-persistence`
-- **Goal:** Implement server-side persistence for grid cell edits.
-
-```bash
-git checkout -b bonus-task-server-side-persistence
-```
-
----
-
-Feel free to include this updated section in your README. This should provide a well-detailed road map for your development workflow.
 ## 📖 Technical Note
 
-To clear stored data, run:
+If you need to clear stored data, you can do so by running:
 
 ```javascript
 localStorage.removeItem("AutomatedCreativeTestAPI");
@@ -136,6 +86,5 @@ localStorage.removeItem("AutomatedCreativeTestAPI");
 
 ## 📜 Changelog
 
-For all notable changes, please see [CHANGELOG.md](CHANGELOG.md).
+For a detailed list of changes, please refer to the [CHANGELOG.md](CHANGELOG.md).
 
----
