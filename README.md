@@ -1,20 +1,19 @@
-# UniPeople: A React-Based People Management System 🎓👥
+# 🎓👥 UniPeople: A React-Based People Management System
 
-## Table of Contents
+## 📑 Table of Contents
 
-- [Getting Started](#-getting-started)
-- [Overview](#-overview)
-- [Tech Stack](#-tech-stack)
-- [Key Files](#-key-files)
-- [Original Issues](#-original-issues)
-- [Tasks & Features Implemented](#-tasks--features-implemented)
-- [Development Workflow](#-development-workflow)
-- [Technical Note](#-technical-note)
-- [Changelog](#-changelog)
+- [🚀 Getting Started](#-getting-started)
+- [📚 Overview](#-overview)
+- [🛠 Tech Stack](#-tech-stack)
+- [📂 Key Files](#-key-files)
+- [🐛 Original Issues](#-original-issues)
+- [✅ Tasks & Features Implemented](#-tasks--features-implemented)
+- [📈 Development Workflow](#-development-workflow)
+- [📜 Changelog](#-changelog)
+
+---
 
 ## 🚀 Getting Started
-
-To get started, you can clone this repository and install the necessary packages.
 
 ```bash
 git clone https://github.com/AdrianGeorgeM/UniPeople-React.git
@@ -23,50 +22,79 @@ npm install
 npm start
 ```
 
-Navigate to [http://localhost:3000/](http://localhost:3000/).
+🌐 Navigate to [http://localhost:3000/](http://localhost:3000/).
 
-This project is bootstrapped with [Create-React-App](https://create-react-app.dev/), ensuring a quick and easy setup.
+This project uses [Create-React-App](https://create-react-app.dev/) for a quick and easy setup.
+
+---
 
 ## 📚 Overview
 
-Welcome to a people management system designed for a fictional university. This React-based single-page application enables you to perform tasks such as searching, filtering, and managing records of Students and Employees efficiently.
+Manage, search, and filter student and employee data in a fictional university setting. Built using React, this app provides a seamless user experience.
+
+---
 
 ## 🛠 Tech Stack
 
-- [React](https://reactjs.org/): For building the UI components
-- [MUI (Material UI)](https://mui.com/): For styling the UI
-- [MUI Data Grid](https://mui.com/x/react-data-grid/): For the data grid component
+- [React](https://reactjs.org/) - UI Components
+- [MUI (Material UI)](https://mui.com/) - Styling
+- [MUI Data Grid](https://mui.com/x/react-data-grid/) - Data Grid
+
+---
 
 ## 📂 Key Files
 
-- `src/App/index.tsx`: Contains the main application logic.
-- `src/api.ts`: Houses the mock API used for data manipulation.
+- `src/App/index.tsx` - Main application logic
+- `src/api.ts` - Mock API for data manipulation
+
+---
 
 ## 🐛 Original Issues
 
-This project aimed to address the following issues:
+- 🎭 Overuse of `useState`
+- 🗃 Mixing UI, Data, Filter States
+- 🐞 Filter Form Bugs
+- 📧 Missing Email Column
+- 🔄 Inadequate Sorting
+- 🔗 No URL Query String Updates
 
-- Overuse of `useState`
-- Mixing of UI, data, and filter states
-- Several bugs, including one in the filter form
-- Missing email column in the data grid
-- Inadequate sorting functionality
-- Absence of URL query string updates for filters
+---
 
 ## ✅ Tasks & Features Implemented
 
-- **State Management Refactor**: Optimized use of React's `useState`.
-- **Bug Fixes**: Rectified issues, including the filter form bug.
-- **Additional Columns**: Introduced an email column in the data grid.
-- **Server-Side Sorting**: Enhanced sorting functionality.
-- **Browser Query String Management**: Enabled dynamic URL updates based on filters.
-- **🌟 Bonus**: Implemented server-side persistence for edited grid cells.
+### 🎭 State Management Refactor
+- **Problem**: Overuse of `useState` leading to confusing state management.
+- **Solution**: Used `useReducer` and context to clearly separate UI state, data state, and filter state.
+- **Tech Used**: React `useReducer`, Context API
+
+### 🐞 Bug Fixes
+- **Problem**: Employee Type not resetting when Role changed to "Student."
+- **Solution**: Added conditional logic to reset the Employee Type to "ANY" when Role is set to "Student."
+- **Tech Used**: React conditional rendering
+
+### 📧 Additional Columns
+- **Problem**: No email column in the data grid.
+- **Solution**: Extended data grid to include an email column.
+- **Tech Used**: MUI Data Grid
+
+### 🔄 Server-Side Sorting
+- **Problem**: Sorting only on the client-side, not utilizing the API's capabilities.
+- **Solution**: Implemented server-side sorting.
+- **Tech Used**: API calls, MUI Data Grid
+
+### 🔗 Browser Query String Management
+- **Problem**: No dynamic URL updates based on applied filters.
+- **Solution**: Added code to update the browser's query string based on the filter state.
+- **Tech Used**: JavaScript's `URLSearchParams`, React Router
+
+### 🌟 Bonus: Server-Side Persistence
+- **Problem**: Grid edits were not persistent.
+- **Solution**: Used server-side persistence to maintain grid cell edits.
+- **Tech Used**: LocalStorage, MUI Data Grid
+
+---
 
 ## 📈 Development Workflow
-
-Development followed a structured branching strategy to ensure that each feature and bug fix was isolated.
-
-Here are the branches that were created for each task and feature:
 
 - Task 1: `task1-split-state`
 - Task 2: `task2-fix-filter-bug`
@@ -74,17 +102,11 @@ Here are the branches that were created for each task and feature:
 - Task 4: `task4-server-side-sorting`
 - Task 5: `task5-query-string`
 - Feature: `feature/task5-react-dom-alternative`
-- Bonus Task: `bonus-task-server-side-persistence`
+- Bonus: `bonus-task-server-side-persistence`
 
-## 📖 Technical Note
-
-If you need to clear stored data, you can do so by running:
-
-```javascript
-localStorage.removeItem("AutomatedCreativeTestAPI");
-```
+---
 
 ## 📜 Changelog
 
-For a detailed list of changes, please refer to the [CHANGELOG.md](CHANGELOG.md).
+Refer to [CHANGELOG.md](CHANGELOG.md) for a detailed list of changes.
 
