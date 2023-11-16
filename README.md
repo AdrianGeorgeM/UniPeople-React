@@ -18,8 +18,8 @@
 ```bash
 git clone https://github.com/AdrianGeorgeM/UniPeople-React.git
 cd UniPeople-React
-npm install
-npm start
+npm install 
+npm start 
 ```
 
 🌐 Navigate to [http://localhost:3000/](http://localhost:3000/).
@@ -38,7 +38,7 @@ Manage, search, and filter student and employee data in a fictional university s
 
 - [React](https://reactjs.org/) - UI Components
 - [MUI (Material UI)](https://mui.com/) - Styling
-- [MUI Data Grid](https://mui.com/x/react-data-grid/) - Data Grid
+- [MUI Data Grid](https://mui.com/x/react-data-grid/) - Data Grid Mui
 
 ---
 
